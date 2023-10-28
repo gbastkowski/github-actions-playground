@@ -10,7 +10,7 @@ jobs:
     - name: Create Release
       uses: ncipollo/release-action@v1
       env:
-        NAME: v${{ steps.ts.outputs.formatted }}-${{ github.sha }}
+        NAME: v${{ steps.timestamp.outputs.formatted }}-${{ github.sha }}
       with:
         tag: ${{ env.NAME }}
         name: ${{ env.NAME }}
