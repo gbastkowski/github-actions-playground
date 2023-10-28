@@ -1,0 +1,17 @@
+name: Release
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    - run: echo "formatted=$(date +'%Y-%m-%dT%H.%M.%S)" >> $GITHUB_OUTPUT
+      shell: bash
+      id: timestamp
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      env:
+        NAME: v${{ steps.ts.outputs.formatted }}-${{ github.sha }}
+      with:
+        tag: ${{ env.NAME }}
+        name: ${{ env.NAME }}
+        commit: ${{ github.sha }}

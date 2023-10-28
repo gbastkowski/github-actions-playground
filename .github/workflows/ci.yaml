@@ -41,3 +41,9 @@ jobs:
     needs: [package]
     steps:
       - run: echo "🎉 Success!"
+
+  release:
+    name: Release
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: integration-test
+    uses: ./.github/workflows/release.yaml
