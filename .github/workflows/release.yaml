@@ -4,15 +4,17 @@ on:
 
 jobs:
   release:
-    - run: |
-        echo "formatted=$(date +'%Y-%m-%dT%H.%M.%S)" >> $GITHUB_OUTPUT
-      shell: bash
-      id: timestamp
-    - name: Create Release
-      uses: ncipollo/release-action@v1
-      env:
-        NAME: v${{ steps.timestamp.outputs.formatted }}-${{ github.sha }}
-      with:
-        tag: ${{ env.NAME }}
-        name: ${{ env.NAME }}
-        commit: ${{ github.sha }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "formatted=$(date +'%Y-%m-%dT%H.%M.%S)" >> $GITHUB_OUTPUT
+        shell: bash
+        id: timestamp
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        env:
+          NAME: v${{ steps.timestamp.outputs.formatted }}-${{ github.sha }}
+        with:
+          tag: ${{ env.NAME }}
+          name: ${{ env.NAME }}
+          commit: ${{ github.sha }}
